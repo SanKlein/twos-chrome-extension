@@ -1,18 +1,18 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension with React & Webpack",
-  "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
+  "name": "Twos: simply remember things",
+  "description": "Chrome extension for Twos: simply remember things",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
+  "permissions": [ "contextMenus", "management", "activeTab", "tabs", "storage" ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon-34.png"
-  },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
+    "default_icon": "favicon.ico"
   },
   "icons": {
-    "128": "icon-128.png"
+    "16": "favicon.ico",
+    "48": "favicon.ico",
+    "128": "favicon.ico"
   },
   "content_scripts": [
     {
