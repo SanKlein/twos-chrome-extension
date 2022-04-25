@@ -58,7 +58,7 @@ Please open up an issue to nudge me to keep the npm packages up-to-date. FYI, it
 
 All your extension's code must be placed in the `src` folder.
 
-The boilerplate is already prepared to have a popup, an options page, a background page, and a new tab page (which replaces the new tab page of your browser). But feel free to customize these.
+The boilerplate is already prepared to have a popup, an options page, and a background page. But feel free to customize these.
 
 ## TypeScript
 

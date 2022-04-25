@@ -4,7 +4,7 @@
   "description": "Chrome extension for Twos: simply remember things",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
-  "permissions": [ "contextMenus", "management", "activeTab", "tabs", "storage" ],
+  "permissions": [ "activeTab", "tabs", "storage" ],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "favicon.ico"
