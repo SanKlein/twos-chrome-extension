@@ -4,9 +4,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 // import { apiUserBase, tokenInvalidMessage } from '../../constants';
-import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
-import './Popup.css';
 import style from '../../styles/App.css';
 
 const days = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];

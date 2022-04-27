@@ -2,9 +2,8 @@
   "manifest_version": 3,
   "name": "Twos: simply remember things",
   "description": "Chrome extension for Twos: simply remember things",
-  "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
-  "permissions": [ "activeTab", "tabs", "storage" ],
+  "permissions": [ "activeTab", "tabs", "storage"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "favicon.ico"
