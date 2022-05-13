@@ -10,7 +10,7 @@ chrome.storage.local.get('state', (obj) => {
 
   // const createStore = require('../../store/configureStore');
 
-  console.log('initialState', initialState);
+  // console.log('initialState', initialState);
 
   render(
     <Popup store={initialState} />,

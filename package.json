@@ -1,7 +1,7 @@
 {
   "name": "Twos",
-  "version": "1.0.1",
-  "description": "Chrome extension for Twos: simply remember things",
+  "version": "1.0.2",
+  "description": "Chrome extension for Twos: The best place to write *things* down",
   "license": "MIT",
   "repository": {
     "type": "git",

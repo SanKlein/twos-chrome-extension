@@ -67,18 +67,28 @@ class Popup extends Component {
 
   componentDidMount() {
     chrome.storage.local.get(['twos'], result => {
-      console.log('result', result);
+      // console.log('result', result);
       this.setState({ ...(result.twos || {}) });
 
       chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         // use `url` here inside the callback because it's asynchronous!
         this.setState({ text: `${tabs[0].title} ${tabs[0].url}` });
+
+        const element = document.getElementById('input');
+
+        element.focus();
+
+        const { value } = element;
+        element.value = '';
+        element.value = value;
       });
     });
   }
 
   addToToday() {
     const { text, user: { _id: user_id, token } } = this.state;
+
+    if (!text) return;
 
     this.setState({ error: '', loading: true });
 
@@ -132,6 +142,21 @@ class Popup extends Component {
 
     return user._id ? (
       <div className="main">
+        <div className="row bottomPadding">
+          <h1 className="username">{`Hi${user.username ? ` ${user.username}` : ''} ✌️`}</h1>
+          <button
+            className="open"
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              window.open('https://www.TwosApp.com', '_blank');
+              track('Open twos', { from: 'popup' });
+            }}
+            target="_blank"
+          >
+            Open Twos
+          </button>
+        </div>
         {success ? (
           <div className="success">
             <span>Successfully added to Today</span>
@@ -147,56 +172,82 @@ class Popup extends Component {
             </button>
           </div>
         ) : (
-          <form
-            className="form"
-            onSubmit={e => {
-              e.stopPropagation();
-              e.preventDefault();
-            }}
-          >
-            <h1>{`Hi ${user.username}`}</h1>
+          <>
             <textarea
+              id="input"
               onChange={e => {
                 e.stopPropagation();
                 e.preventDefault();
+                const newText = e.target.value;
+
+                if (newText === `${text}\n`) {
+                  this.addToToday();
+                  return;
+                }
+
                 this.setState({ text: e.target.value }, this.saveState);
               }}
+              placeholder="What do you want to remember?"
               value={text}
             />
             {!!error && <span>{error}</span>}
+          </>
+        )}
+        <div className="help submit">
+          {!!text && (
             <button
-              className="submitButton"
+              className="clearButton"
               disabled={loading}
               onClick={e => {
                 e.preventDefault();
                 e.stopPropagation();
-                this.addToToday();
+                this.setState({ text: '' }, this.saveState);
+                // if (isElementFocused(element)) return;
+
+                const element = document.getElementById('input');
+
+                element.focus();
               }}
             >
-              {loading ? 'Adding...' : 'Add to Today'}
+              Clear
             </button>
-          </form>
-        )}
-        <button
-          className="help"
-          onClick={e => {
-            e.preventDefault();
-            e.stopPropagation();
-            window.open('mailto:help@twosapp.com?subject=Hi Twos', '_blank');
-            track('Contact us', { from: 'login view' });
-          }}
-          target="_blank"
-        >
-          <p>
-            Need help?
-          </p>
-          Contact us
-        </button>
-        <button className="logout" onClick={() => this.setState({ user: {} }, this.saveState)}>Logout</button>
+          )}
+          <button
+            className="submitButton"
+            disabled={loading}
+            onClick={e => {
+              e.preventDefault();
+              e.stopPropagation();
+              this.addToToday();
+            }}
+          >
+            {loading ? 'Adding...' : 'Add to Today'}
+          </button>
+        </div>
+        <div className="flex">
+          <div className="row bottom">
+            <p>
+              Need help?
+            </p>
+            <button
+              className="help"
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open('mailto:help@twosapp.com?subject=Hi Twos', '_blank');
+                track('Contact us', { from: 'login view' });
+              }}
+              target="_blank"
+            >
+              Contact us
+            </button>
+          </div>
+          <button className="logout" onClick={() => this.setState({ user: {} }, this.saveState)}>Logout</button>
+        </div>
       </div>
     ) : (
       <div className="login">
-        <h1>Welcome to Twos</h1>
+        <h1 className="bottomPadding">Welcome to Twos ✌️</h1>
         <form
           onSubmit={e => {
             e.preventDefault();
@@ -239,21 +290,25 @@ class Popup extends Component {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        <button
-          className="help"
-          onClick={e => {
-            e.preventDefault();
-            e.stopPropagation();
-            window.open('mailto:help@twosapp.com?subject=Hi Twos', '_blank');
-            track('Contact us', { from: 'login view' });
-          }}
-          target="_blank"
-        >
-          <p>
-            Need help?
-          </p>
-          Contact us
-        </button>
+        <div className="flex">
+          <div className="row bottom">
+            <p>
+              Need help?
+            </p>
+            <button
+              className="help"
+              onClick={e => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.open('mailto:help@twosapp.com?subject=Hi Twos', '_blank');
+                track('Contact us', { from: 'login view' });
+              }}
+              target="_blank"
+            >
+              Contact us
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
