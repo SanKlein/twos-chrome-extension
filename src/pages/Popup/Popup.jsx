@@ -168,7 +168,7 @@ class Popup extends Component {
                 this.setState({ error: '', success: false });
               }}
             >
-              New thing
+              New
             </button>
           </div>
         ) : (
@@ -191,39 +191,39 @@ class Popup extends Component {
               value={text}
             />
             {!!error && <span>{error}</span>}
+            <div className="help submit">
+              {!!text && (
+                <button
+                  className="clearButton"
+                  disabled={loading}
+                  onClick={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.setState({ text: '' }, this.saveState);
+                    // if (isElementFocused(element)) return;
+
+                    const element = document.getElementById('input');
+
+                    element.focus();
+                  }}
+                >
+                  Clear
+                </button>
+              )}
+              <button
+                className="submitButton"
+                disabled={loading}
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  this.addToToday();
+                }}
+              >
+                {loading ? 'Adding...' : 'Add to Today'}
+              </button>
+            </div>
           </>
         )}
-        <div className="help submit">
-          {!!text && (
-            <button
-              className="clearButton"
-              disabled={loading}
-              onClick={e => {
-                e.preventDefault();
-                e.stopPropagation();
-                this.setState({ text: '' }, this.saveState);
-                // if (isElementFocused(element)) return;
-
-                const element = document.getElementById('input');
-
-                element.focus();
-              }}
-            >
-              Clear
-            </button>
-          )}
-          <button
-            className="submitButton"
-            disabled={loading}
-            onClick={e => {
-              e.preventDefault();
-              e.stopPropagation();
-              this.addToToday();
-            }}
-          >
-            {loading ? 'Adding...' : 'Add to Today'}
-          </button>
-        </div>
         <div className="flex">
           <div className="row bottom">
             <p>

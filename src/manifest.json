@@ -3,7 +3,7 @@
   "name": "Twos: The best place to write *things* down",
   "description": "Chrome extension for Twos: The best place to write *things* down",
   "background": { "service_worker": "background.bundle.js" },
-  "permissions": [ "activeTab", "tabs", "storage"],
+  "permissions": [ "tabs", "storage"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "favicon.ico"
