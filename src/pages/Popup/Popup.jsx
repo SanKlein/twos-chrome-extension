@@ -53,8 +53,10 @@ class Popup extends Component {
 
     this.state = {
       error: '',
+      loading: false,
       loggedIn: false,
       password: '',
+      success: false,
       text: '',
       user: {},
       username: '',
@@ -68,7 +70,7 @@ class Popup extends Component {
   componentDidMount() {
     chrome.storage.local.get(['twos'], result => {
       // console.log('result', result);
-      this.setState({ ...(result.twos || {}) });
+      this.setState({ ...(result.twos || {}), loading: false, success: false });
 
       chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
         // use `url` here inside the callback because it's asynchronous!
